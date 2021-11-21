@@ -44,7 +44,15 @@ namespace HealthCheck
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = (context) =>
+                {
+                    // Disable caching for all static file.
+                    context.Context.Response.Headers["Cache-Control"] = Configuration["StaticFiles:Headers:Cache-Control"];
+                }
+            });
+
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
