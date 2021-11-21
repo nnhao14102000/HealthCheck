@@ -10,6 +10,7 @@ namespace HealthCheck
 {
     public class Startup
     {
+        public static readonly string ClientApp = "ClientApp";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,7 +25,7 @@ namespace HealthCheck
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = string.Format("{0}/dist", ClientApp);
             });
         }
 
@@ -63,7 +64,7 @@ namespace HealthCheck
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = ClientApp;
 
                 if (env.IsDevelopment())
                 {
